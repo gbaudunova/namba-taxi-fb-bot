@@ -1,16 +1,15 @@
-# import os
 import sys
+import json
 import logging
-from flask import Flask, request
-from pymessenger.bot import Bot
+import sys
 # from pymessenger import Button
 import requests
-import json
-
-
-PAGE_ACCESS_TOKEN = ''
-GRAPH_URL = ''
-VERIFY_TOKEN = ''
+from flask import Flask, request
+from pymessenger.bot import Bot
+from modules.messages import *
+# from modules.sekret import *
+from modules.setup import *
+setup_all()
 
 app = Flask(__name__)
 bot = Bot(PAGE_ACCESS_TOKEN)
@@ -58,19 +57,19 @@ def webhook_test():
 
 def decide_message(sender_id, message_text):
     if(message_text == "call-taxi"):
-        send_text_message(sender_id)
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_PHONE)
     elif(message_text == 'rates'):
-        send_message(sender_id)
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_BUTTON_MESSAGE2)
     else:
         print("Error")
 
 
-def send_text_message(sender_id):
+def send_button_message(sender_id, page_token, btn_message):
 
-    log("sending message to {recipient}: {text}".format(recipient=sender_id, text="text1"))
+    log("sending message to {recipient}: {text}".format(recipient=sender_id, text=""))
 
     params = {
-        "access_token": PAGE_ACCESS_TOKEN
+        "access_token": page_token
     }
     headers = {
         "Content-Type": "application/json"
@@ -80,42 +79,7 @@ def send_text_message(sender_id):
             "id": sender_id
         },
         "message": {
-            "text": "Укажите ваш телефон. Например: +996555112233"
-
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.10/me/messages", params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
-
-
-def send_message(sender_id):
-    log("sending message to {recipient}: {text}".format(recipient=sender_id,
-                                                        text="Укажите ваш телефон. Например: +996555112233"))
-
-    params = {
-        "access_token": PAGE_ACCESS_TOKEN
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": sender_id
-        },
-        "message": {
-            "text": "Тариф: Стандарт. Стоимость посадки: 50.00. Стоимость за километр: 12.00.\n"
-            
-                    "Тариф: Минивэн. Стоимость посадки: 100.00. Стоимость за километр: 12.00.\n"
-            
-                    "Тариф: Комфорт. Стоимость посадки: 70.00. Стоимость за километр: 15.00.\n"
-            
-                    "Тариф: Байк+. Стоимость посадки: 100.00. Стоимость за километр: 10.00.\n"
-            
-                    "Тариф: Портер. Стоимость посадки: 500.00. Стоимость за километр: 0.00.\n"
-            
-                    "Для получения более подробной информации, перейдите по ссылке: https://nambataxi.kg/ru/tariffs/"
+            "text": btn_message
 
         }
     })
@@ -132,7 +96,7 @@ def send_button_start_message(sender_id):
                                     "type": "template",
                                     "payload": {
                                           "template_type": "button",
-                                          "text": "Вас приветствует бот для вызова NambaTaxi!",
+                                          "text": BOT_WELCOME_MESSAGE,
                                           "buttons": [
                                               {
                                                   "type": "postback",
@@ -153,6 +117,72 @@ def send_button_start_message(sender_id):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+
+
+
+# def send_chat_message(sender_id, text):
+#     buttons = [
+#         {
+#             'type': 'postback',
+#             'title': 'New chat',
+#             'payload': 'user1',
+#         },
+#         {
+#             'type': 'postback',
+#             'title': 'End chat',
+#             'payload': 'user2',
+#         },
+#     ]
+#
+#     send_button_message(sender_id, text, buttons)
+#
+#
+# def send_get_started_message(recipient_id):
+#     text = 'Get started - chat with a rando'
+#     buttons = [
+#         {
+#             'type': 'postback',
+#             'title': 'Chat with a stranger',
+#             'payload': 'nextuser',
+#         },
+#     ]
+#
+#     send_button_message(recipient_id, text, buttons)
+#
+# def send_button_message(sender_id, text, buttons):
+#     message_data = {
+#         'attachment': {
+#             'type': 'template',
+#             'payload': {
+#                 'template_type': 'button',
+#                 'text': text,
+#                 'buttons': buttons,
+#             }
+#         }
+#     }
+#
+#     send_text_message(sender_id, message_data)
+# #
+#
+# def send_message(recipient_id, message_data):
+#     params = {
+#         'access_token': PAGE_ACCESS_TOKEN,
+#     }
+#
+#     data = {
+#         'recipient': {
+#             'id': str(recipient_id)
+#         },
+#         'message': message_data,
+#     }
+#
+#     print('message_data', message_data)
+#
+#     r = requests.post(GRAPH_URL, params=params, json=data)
+#
+#     if r.status_code != requests.codes.ok:
+#         print(r, r.text)
 
 
 def log(message):
