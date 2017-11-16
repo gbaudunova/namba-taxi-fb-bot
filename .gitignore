@@ -4,6 +4,8 @@ __pychache__
 .vscode
 modules/sekret.py
 modules/__pycache__/
-
+Phone_Sqlite.sqlite
 modules/Phone_Sqlite.sqlite
-
+db/
+.env
+__pycache__/
