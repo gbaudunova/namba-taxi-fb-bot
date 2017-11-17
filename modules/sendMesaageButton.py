@@ -13,6 +13,8 @@ def decide_message(sender_id, message):
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_BUTTON_MESSAGE2)
     elif(message == 'getstarted'):
         send_button_start_message(sender_id)
+    elif(message == 'send-phone'):
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
     else:
         print('Get Started')
 
