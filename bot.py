@@ -11,6 +11,7 @@ from modules.sendMesaageButton import *
 from modules.start import send_button_start_message
 
 
+
 app = Flask(__name__)
 bot = Bot(PAGE_ACCESS_TOKEN)
 # logger = logging.getLogger(__name__)
@@ -28,8 +29,10 @@ def handle_verification():
 
 @app.route('/', methods=['POST'])
 def webhook_test():
+
     data = request.get_json()
     log(data)
+
 
     if data["object"] == "page":
         for entry in data["entry"]:
@@ -39,6 +42,7 @@ def webhook_test():
                 if messaging_event.get("message"):
                     message_text = messaging_event["message"]["text"]
                     needPhone(sender_id, message_text, data)
+                    #insertPhoneNumbers(data)
 
                 if messaging_event.get("postback"):
                     # sender_id = messaging_event["sender"]["id"]
