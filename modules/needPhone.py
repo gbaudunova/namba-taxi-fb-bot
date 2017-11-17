@@ -1,13 +1,53 @@
-from .messages import BOT_PHONE_START_996, BOT_ASK_FARE
+import requests
+import json
+from .messages import BOT_PHONE_START_996, BOT_ASK_FARE, BOT_ERROR_JUST_NUMBER, BOT_SEND_PHONE
 from .sendMesaageButton import send_button_message
 from .sekret import *
+from .config import *
 
 
 def needPhone(sender_id, message_text, data):
-    message_id = data['entry'][0]['messaging'][0]['message']['text'][0]
-    if message_id != "+":
-        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_PHONE_START_996)
-    elif message_id == "+":
-        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
-    else:
-        print("Error")
+    message_id = data['entry'][0]['messaging'][0]['message']['text']
+    try:
+        integer = int(message_id)
+        a = message_id.rfind('')
+        if message_id[0:4] != "+996":
+            send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_PHONE_START_996)
+        elif message_id[0:4] == "+996" and a == 13:
+            savePhone(sender_id)
+            insertPhoneNumbers(data)
+        else:
+            send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ERROR_JUST_NUMBER)
+
+    except ValueError:
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ERROR_JUST_NUMBER)
+
+
+def savePhone(sender_id):
+    params = {
+        "access_token": PAGE_ACCESS_TOKEN
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": "Нажмите на кнопку для сохранения вашего номера",
+                    "buttons": [
+                    {
+                        "type": "postback",
+                        "title": "Сохранить номер телефона",
+                        "payload": "send-phone"
+                    },
+                    ]
+                }
+            }
+        }
+    })
+    headers = {'Content-type': 'application/json'}
+    r = requests.post(URL, data=data, params=params, headers=headers)
+
