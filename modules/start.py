@@ -1,7 +1,7 @@
 import json
 import requests
 from .messages import BOT_WELCOME_MESSAGE
-from modules.sekret import *
+from .sekret import *
 
 
 def send_button_start_message(sender_id):
@@ -37,5 +37,8 @@ def send_button_start_message(sender_id):
     # if r.status_code != 200:
     #     log(r.status_code)
     #     log(r.text)
+
+
+
 
 
