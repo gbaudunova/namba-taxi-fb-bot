@@ -1,9 +1,9 @@
 import requests
 import json
-from .messages import BOT_PHONE_START_996, BOT_ASK_FARE, BOT_ERROR_JUST_NUMBER, BOT_SEND_PHONE
-from .sendMesaageButton import send_button_message
+from .messages import *
+from .sendMessageButton import send_button_message
 from .sekret import *
-from .config import *
+from .db import *
 
 
 def needPhone(sender_id, message_text, data):
@@ -16,11 +16,12 @@ def needPhone(sender_id, message_text, data):
         elif message_id[0:4] == "+996" and a == 13:
             savePhone(sender_id)
             insertPhoneNumbers(data)
+
         else:
             send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ERROR_JUST_NUMBER)
 
     except ValueError:
-        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ERROR_JUST_NUMBER)
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ORDER_CREATED)
 
 
 def savePhone(sender_id):
