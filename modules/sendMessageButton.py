@@ -5,9 +5,11 @@ from .messages import *
 from .sekret import *
 from .start import send_button_start_message
 from .needPhone import *
+from .needFares import send_fares
+from .db import insertFares
 
 
-def decide_message(sender_id, message):
+def decide_message(sender_id, message, data):
     if(message == "call-taxi"):
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_PHONE)
     elif(message == 'rates'):
@@ -15,10 +17,13 @@ def decide_message(sender_id, message):
     elif(message == 'getstarted'):
         send_button_start_message(sender_id)
     elif(message == 'send-phone'):
-        #send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
-        sendFares(sender_id)
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
+        send_fares(sender_id)
     else:
-        print('Get Started')
+        callback = data['entry'][0]['messaging'][0]['postback']['payload']
+        print(callback)
+        insertFares(data)
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_ADDRESS)
 
 
 def send_button_message(sender_id, page_token, btn_message):
@@ -44,51 +49,4 @@ def send_button_message(sender_id, page_token, btn_message):
         log(r.text)
 
 
-def sendFares(sender_id):
-    params = {
-        "access_token": PAGE_ACCESS_TOKEN
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": sender_id
-        },
-        "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "button",
-                    "text": "Выберите тариф",
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Стандарт",
-                            "payload": "standard-fare"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Минивэн",
-                            "payload": "minivan-fare"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Комфорт",
-                            "payload": "comfort-fare"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Байк+",
-                            "payload": "bike-fare"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Портер",
-                            "payload": "porter-fare"
-                        }
-                    ]
-                }
-            }
-        }
-    })
-    headers = {'Content-type': 'application/json'}
-    r = requests.post(URL, data=data, params=params, headers=headers)
 
