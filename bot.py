@@ -7,8 +7,9 @@ from pymessenger.bot import Bot
 # from modules.messages import *
 from modules.sekret import *
 from modules.needPhone import *
-from modules.sendMesaageButton import *
+from modules.sendMessageButton import *
 from modules.start import send_button_start_message
+
 
 
 
@@ -29,11 +30,8 @@ def handle_verification():
 
 @app.route('/', methods=['POST'])
 def webhook_test():
-
     data = request.get_json()
     log(data)
-
-
     if data["object"] == "page":
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
@@ -42,12 +40,14 @@ def webhook_test():
                 if messaging_event.get("message"):
                     message_text = messaging_event["message"]["text"]
                     needPhone(sender_id, message_text, data)
-                    #insertPhoneNumbers(data)
+
 
                 if messaging_event.get("postback"):
                     # sender_id = messaging_event["sender"]["id"]
                     message = messaging_event["postback"]["payload"]
-                    decide_message(sender_id, message)
+                    decide_message(sender_id, message, data)
+
+
     setup_all()
 
     return "ok", 200
