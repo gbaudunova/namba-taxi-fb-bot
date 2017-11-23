@@ -4,6 +4,7 @@ from .messages import *
 from .sendMessageButton import send_button_message
 from .sekret import *
 from .db import *
+from .handlers import CreateOrder
 
 
 def needPhone(sender_id, message_text, data):
@@ -21,6 +22,9 @@ def needPhone(sender_id, message_text, data):
             send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ERROR_JUST_NUMBER)
 
     except ValueError:
+        address = data['entry'][0]['messaging'][0]['message']['text']
+        insertAddress(data)
+        CreateOrder()
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ORDER_CREATED)
 
 
