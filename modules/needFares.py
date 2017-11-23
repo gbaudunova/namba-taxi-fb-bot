@@ -1,10 +1,9 @@
 import json
 import requests
 from .sekret import *
-from .db import insertFares
 
 
-def send_fares(sender_id):
+def createKeyboardFares(sender_id):
     params = {"access_token": PAGE_ACCESS_TOKEN}
     data = json.dumps({
         "recipient": {
