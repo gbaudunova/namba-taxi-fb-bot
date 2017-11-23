@@ -4,7 +4,7 @@ from .messages import BOT_WELCOME_MESSAGE
 from .sekret import *
 
 
-def send_button_start_message(sender_id):
+def getBasicKeyboardMessage(sender_id):
     params = {"access_token": PAGE_ACCESS_TOKEN}
     data = json.dumps({
         "recipient": {
