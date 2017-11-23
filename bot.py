@@ -8,9 +8,6 @@ from pymessenger.bot import Bot
 from modules.sekret import *
 from modules.needPhone import *
 from modules.sendMessageButton import *
-from modules.start import send_button_start_message
-
-
 
 
 app = Flask(__name__)
@@ -41,12 +38,9 @@ def webhook_test():
                     message_text = messaging_event["message"]["text"]
                     needPhone(sender_id, message_text, data)
 
-
                 if messaging_event.get("postback"):
-                    # sender_id = messaging_event["sender"]["id"]
                     message = messaging_event["postback"]["payload"]
                     decide_message(sender_id, message, data)
-
 
     setup_all()
 
