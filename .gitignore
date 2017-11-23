@@ -11,3 +11,4 @@ db/
 __pycache__
 Phone_Sqlite.sqlite
 phone_numbers.db
+NambaTaxiBot.db
