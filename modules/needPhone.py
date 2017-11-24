@@ -4,7 +4,8 @@ from .messages import *
 from .sendMessageButton import send_button_message
 from .sekret import *
 from .db import *
-from .handlers import CreateOrder
+from .orderCreation import CreateOrder
+from .keyboard import GetOrderKeyboard
 
 
 def needPhone(sender_id, message_text, data):
@@ -26,6 +27,7 @@ def needPhone(sender_id, message_text, data):
         insertAddress(data)
         CreateOrder()
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ORDER_CREATED)
+        GetOrderKeyboard(sender_id)
 
 
 def savePhone(sender_id):
