@@ -1,0 +1,14 @@
+venv
+__pychache__
+.idea
+.vscode
+modules/sekret.py
+modules/__pycache__/
+Phone_Sqlite.sqlite
+modules/Phone_Sqlite.sqlite
+db/
+.env
+__pycache__
+Phone_Sqlite.sqlite
+phone_numbers.db
+NambaTaxiBot.db
