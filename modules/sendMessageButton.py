@@ -3,11 +3,10 @@ import requests
 from bot import log
 from .messages import *
 from .sekret import *
-from .start import getBasicKeyboardMessage
+from .keyboard import getBasicKeyboardMessage
 from .needPhone import *
 from .needFares import createKeyboardFares
 from .db import insertFares
-
 
 
 def decide_message(sender_id, message, data):
@@ -20,6 +19,12 @@ def decide_message(sender_id, message, data):
     elif(message == 'send-phone'):
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
         createKeyboardFares(sender_id)
+    elif(message == 'order-status'):
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_MESSAGE_MY_ORDER_STATUS)
+    elif(message == 'nearest-drivers'):
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_MESSAGE_NEAREST_CARS)
+    elif(message == 'order-cancel'):
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ORDER_CANCEL)
     else:
         callback = data['entry'][0]['messaging'][0]['postback']['payload']
         insertFares(data)
@@ -27,7 +32,6 @@ def decide_message(sender_id, message, data):
 
 
 def send_button_message(sender_id, page_token, btn_message):
-    # log("sending message to {recipient}: {text}".format(recipient=sender_id, text=""))
     params = {
         "access_token": page_token
     }
