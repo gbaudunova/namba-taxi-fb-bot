@@ -26,7 +26,7 @@ def need_phone(sender_id, data):
 
 def need_address(sender_id, data):
     insert_address(data)
-    create_order(phone_number, fare, address)
+    #create_order(phone_number, fare, address)
     send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ORDER_CREATED)
     get_order_keyboard(sender_id)
 
