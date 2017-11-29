@@ -4,7 +4,26 @@ from .messages import *
 from .sekret import *
 
 
-def getBasicKeyboardMessage(sender_id):
+def send_button_message(sender_id, page_token, btn_message):
+    params = {
+        "access_token": page_token
+    }
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": btn_message
+
+        }
+    })
+    r = requests.post(URL, params=params, headers=headers, data=data)
+
+
+def get_basic_keyboard_message(sender_id):
     params = {"access_token": PAGE_ACCESS_TOKEN}
     data = json.dumps({
         "recipient": {
@@ -34,12 +53,9 @@ def getBasicKeyboardMessage(sender_id):
     })
     headers = {'Content-type': 'application/json'}
     r = requests.post(URL, data=data, params=params, headers=headers)
-    # if r.status_code != 200:
-    #     log(r.status_code)
-    #     log(r.text)
 
 
-def GetOrderKeyboard(sender_id):
+def get_order_keyboard(sender_id):
     params = {"access_token": PAGE_ACCESS_TOKEN}
     data = json.dumps({
         "recipient": {
@@ -74,6 +90,92 @@ def GetOrderKeyboard(sender_id):
     })
     headers = {'Content-type': 'application/json'}
     r = requests.post(URL, data=data, params=params, headers=headers)
+
+
+def create_keyboard_fares(sender_id):
+    params = {"access_token": PAGE_ACCESS_TOKEN}
+    data = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [
+                        {
+                            "title": "Проведите влево/вправо для получения дополнительных тарифов.",
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Стандарт",
+                                    "payload": "1"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Минивэн",
+                                    "payload": "2"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Комфорт",
+                                    "payload": "3"
+                                }
+                                ]
+                        },
+                        {
+                            "title": "Проведите влево/вправо для получения дополнительных тарифов.",
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Байк+",
+                                    "payload": "4"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Портер",
+                                    "payload": "5"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    })
+    headers = {'Content-type': 'application/json'}
+    r = requests.post(URL, data=data, params=params, headers=headers)
+
+
+def save_phone(sender_id):
+    params = {
+        "access_token": PAGE_ACCESS_TOKEN
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": "Нажмите на кнопку для сохранения вашего номера",
+                    "buttons": [
+                    {
+                        "type": "postback",
+                        "title": "Сохранить номер телефона",
+                        "payload": "save-phone"
+                    },
+                    ]
+                }
+            }
+        }
+    })
+    headers = {'Content-type': 'application/json'}
+    r = requests.post(URL, data=data, params=params, headers=headers)
+
 
 
 
