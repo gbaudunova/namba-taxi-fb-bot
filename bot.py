@@ -1,19 +1,14 @@
 import sys
-import json
-import logging
 import requests
 from flask import Flask, request
 from pymessenger.bot import Bot
-# from modules.messages import *
+from modules.sendMessageButton import decide_button
 from modules.sekret import *
-from modules.needPhone import *
-from modules.sendMessageButton import *
+from modules.sendMessage import decide_message
 
 
 app = Flask(__name__)
 bot = Bot(PAGE_ACCESS_TOKEN)
-# logger = logging.getLogger(__name__)
-# logger.addHandler(logging.NullHandler())
 
 
 @app.route('/', methods=['GET'])
@@ -36,18 +31,18 @@ def webhook_test():
                 recipient_id = messaging_event["recipient"]["id"]
                 if messaging_event.get("message"):
                     message_text = messaging_event["message"]["text"]
-                    needPhone(sender_id, message_text, data)
+                    decide_message(sender_id, message_text, data)
 
                 if messaging_event.get("postback"):
                     message = messaging_event["postback"]["payload"]
-                    decide_message(sender_id, message, data)
+                    decide_button(sender_id, message, data)
 
     setup_all()
 
     return "ok", 200
 
 
-def setup_getStarted():
+def setup_get_started():
     params = {
         "access_token": PAGE_ACCESS_TOKEN
     }
@@ -76,7 +71,7 @@ def setup_greeting():
 
 
 def setup_all():
-    setup_getStarted()
+    setup_get_started()
     setup_greeting()
 
 
