@@ -4,7 +4,9 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 from modules.sendMessageButton import decide_button
 from modules.sekret import *
-from modules.sendMessage import decide_message
+from modules.need_parameters import need_phone
+#from api.requests import create_order
+#from modules.sendMessage import decide_message
 
 
 app = Flask(__name__)
@@ -22,6 +24,9 @@ def handle_verification():
 
 @app.route('/', methods=['POST'])
 def webhook_test():
+    phone_number = ''
+    address = ''
+    fare = ''
     data = request.get_json()
     log(data)
     if data["object"] == "page":
@@ -31,12 +36,15 @@ def webhook_test():
                 recipient_id = messaging_event["recipient"]["id"]
                 if messaging_event.get("message"):
                     message_text = messaging_event["message"]["text"]
-                    decide_message(sender_id, message_text, data)
+                    need_phone(sender_id, data, phone_number, fare, address)
+                    # decide_message(sender_id,message_text, data)
 
                 if messaging_event.get("postback"):
                     message = messaging_event["postback"]["payload"]
                     decide_button(sender_id, message, data)
 
+                if messaging_event.get("delivery"):  # delivery confirmation
+                    pass
     setup_all()
 
     return "ok", 200
