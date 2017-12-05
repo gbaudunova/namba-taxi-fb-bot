@@ -4,7 +4,6 @@ from .keyboard import get_basic_keyboard_message
 from .keyboard import create_keyboard_fares
 from .db import insert_fares
 from .keyboard import send_button_message
-#from api.requests import get_order_status
 
 
 def decide_button(sender_id, message, data):
