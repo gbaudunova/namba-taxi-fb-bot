@@ -10,8 +10,9 @@ def decide_button(sender_id, message, data):
     if message == "call-taxi":
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_PHONE)
     elif message == 'rates':
-        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_BUTTON_MESSAGE2)
-    elif message == 'getstarted':
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_FARE_INFO)
+        send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_FARES_LINK)
+    elif message == 'get_started':
         get_basic_keyboard_message(sender_id)
     elif message == 'save-phone':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
