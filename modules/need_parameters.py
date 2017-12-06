@@ -1,7 +1,7 @@
 from .messages import *
 from .sekret import *
 from .db import insert_address, insert_phone_numbers
-from api.requests import create_order
+from api.handlers_order import create_order
 from .keyboard import get_order_keyboard
 from .keyboard import save_phone
 from .keyboard import send_button_message

@@ -20,7 +20,7 @@ def send_button_message(sender_id, page_token, btn_message):
 
         }
     })
-    r = requests.post(URL, params=params, headers=headers, data=data)
+    response = requests.post(URL, params=params, headers=headers, data=data)
 
 
 def get_basic_keyboard_message(sender_id):
@@ -52,7 +52,7 @@ def get_basic_keyboard_message(sender_id):
         }
     })
     headers = {'Content-type': 'application/json'}
-    r = requests.post(URL, data=data, params=params, headers=headers)
+    response = requests.post(URL, data=data, params=params, headers=headers)
 
 
 def get_order_keyboard(sender_id):
@@ -89,7 +89,7 @@ def get_order_keyboard(sender_id):
         }
     })
     headers = {'Content-type': 'application/json'}
-    r = requests.post(URL, data=data, params=params, headers=headers)
+    response = requests.post(URL, data=data, params=params, headers=headers)
 
 
 def create_keyboard_fares(sender_id):
@@ -145,7 +145,7 @@ def create_keyboard_fares(sender_id):
         }
     })
     headers = {'Content-type': 'application/json'}
-    r = requests.post(URL, data=data, params=params, headers=headers)
+    response = requests.post(URL, data=data, params=params, headers=headers)
 
 
 def save_phone(sender_id):
@@ -174,7 +174,7 @@ def save_phone(sender_id):
         }
     })
     headers = {'Content-type': 'application/json'}
-    r = requests.post(URL, data=data, params=params, headers=headers)
+    responce = requests.post(URL, data=data, params=params, headers=headers)
 
 
 

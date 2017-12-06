@@ -28,15 +28,3 @@ def insert_address(data):
 
 
 
-#
-
-
-
-
-
-
-
-
-
-    # db.close()
-    # c.close()
