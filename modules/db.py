@@ -4,7 +4,6 @@ import sqlite3
 def insert_phone_numbers(data):
     db = sqlite3.connect('NambaTaxiBot.db')
     c = db.cursor()
-    #c.execute("CREATE TABLE phoneNumbers (id INTEGER PRIMARY KEY AUTOINCREMENT, Numbers INTEGER)")
     variable = data['entry'][0]['messaging'][0]['message']['text']
     c.execute("INSERT INTO phone_number VALUES (NULL, ?)", (variable,))
     db.commit()
