@@ -1,7 +1,7 @@
 import json
 import requests
-from .messages import *
-from .sekret import *
+from chat.messages import *
+from modules.sekret import *
 
 
 def send_button_message(sender_id, page_token, btn_message):

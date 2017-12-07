@@ -1,11 +1,11 @@
-from .messages import *
-from .sekret import *
-from .db import insert_address, insert_phone_numbers
 from api.handlers_order import create_order
-from .keyboard import get_order_keyboard
-from .keyboard import save_phone
-from .keyboard import send_button_message
-from .messages import BOT_ERROR_MESSAGE
+from chat.keyboard import get_order_keyboard
+from chat.keyboard import save_phone
+from chat.keyboard import send_button_message
+from chat.messages import *
+from chat.messages import BOT_ERROR_MESSAGE
+from .db import insert_address, insert_phone_numbers
+from .sekret import *
 
 
 def need_phone(sender_id, data):

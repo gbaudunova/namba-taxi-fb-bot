@@ -1,5 +1,4 @@
 venv
-__pychache__
 .idea
 .vscode
 modules/sekret.py
@@ -15,4 +14,5 @@ NambaTaxiBot.db
 phone_numbers.db
 postman.tar.gz
 NambaTaxiBot.db-journal
+__pychache__
 

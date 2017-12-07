@@ -2,7 +2,6 @@ import requests
 from flask import Flask
 from modules.sekret import *
 
-
 app = Flask(__name__)
 
 
