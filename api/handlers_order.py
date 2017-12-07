@@ -1,27 +1,10 @@
-import requests
 import sqlite3
+import requests
 from flask import Flask
-from modules.sekret import *
 from modules.get_data import get_data
-from .order_status import get_order_status
-
+from modules.sekret import *
 
 app = Flask(__name__)
-
-
-@app.route('/v1/drivers/nearest', methods=['POST'])
-def get_nearest_drivers():
-    data = get_data()
-    address = data[2][1]
-    body = {
-        "server_token": SERVER_TOKEN,
-        "partner_id": PARTNER_ID,
-        "address": address
-
-    }
-    headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
-    resp = requests.post("https://partners.staging.swift.kg/api/v1/drivers/nearest", data=body, headers=headers).json()
-    print(resp)
 
 
 @app.route('/v1/requests/{id}/cancel/')
@@ -30,7 +13,7 @@ def cancel_order(order_id):
     print(url)
     body = {
         "server_token": SERVER_TOKEN,
-        "partner_id": PARTNER_ID,
+        "partner_id": PARTNER_ID
 
     }
     headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
@@ -57,9 +40,6 @@ def create_order():
     order_id = responce['order_id']
     print(order_id)
     insert_order_id(order_id)
-    get_order_status(order_id)
-    cancel_order(order_id)
-    get_nearest_drivers()
     return order_id
 
 
@@ -68,6 +48,15 @@ def insert_order_id(order_id):
     conn2 = db3.cursor()
     conn2.execute("INSERT INTO order_id VALUES (NULL , ?)", (order_id,))
     db3.commit()
+
+
+def delete_order_id():
+    db4 = sqlite3.connect('NambaTaxiBot.db')
+    conn3 = db4.cursor()
+    conn3.execute("DELETE FROM order_id WHERE id=(SELECT max(id) FROM order_id);")
+    db4.commit()
+
+
 
 
 

@@ -1,6 +1,8 @@
 import json
+
 import requests
-from .messages import *
+
+from chat.messages import *
 from .sekret import *
 
 
