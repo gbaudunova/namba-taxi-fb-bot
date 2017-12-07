@@ -17,6 +17,5 @@ def get_nearest_drivers():
     }
     headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
     resp = requests.post("https://partners.staging.swift.kg/api/v1/drivers/nearest/", data=body, headers=headers).json()
-    print(resp)
     nearest_cars = resp['drivers']
     return nearest_cars
