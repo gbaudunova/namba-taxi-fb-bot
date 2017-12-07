@@ -50,7 +50,7 @@ def setup_get_started():
     }
     data = {
         "get_started": {
-            "payload": "getstarted"
+            "payload": "get_started"
         }
     }
     r = requests.post("https://graph.facebook.com/v2.10/me/messenger_profile", params=params, json=data)
