@@ -14,6 +14,22 @@ def get_data():
     return phone_number, fare, address
 
 
+def get_order_id():
+    db = sqlite3.connect('NambaTaxiBot.db')
+    c = db.cursor()
+    c.execute("SELECT * FROM order_id WHERE id=(SELECT max(id) FROM order_id);")
+    order_id = c.fetchone()
+    return order_id
+
+
+def get_address():
+    db = sqlite3.connect('NambaTaxiBot.db')
+    c = db.cursor()
+    c.execute("SELECT * FROM address WHERE id=(SELECT max(id) FROM address);")
+    address_data = c.fetchone()
+    return address_data
+
+
 
 
 
