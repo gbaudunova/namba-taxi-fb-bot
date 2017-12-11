@@ -1,8 +1,7 @@
 import requests
 from flask import Flask
 from modules.get_data import get_address
-from modules.sekret import *
-
+from modules.sekret import SERVER_TOKEN, PARTNER_ID
 app = Flask(__name__)
 
 
@@ -17,5 +16,8 @@ def get_nearest_drivers():
     }
     headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
     resp = requests.post("https://partners.staging.swift.kg/api/v1/drivers/nearest/", data=body, headers=headers).json()
+    print(resp)
     nearest_cars = resp['drivers']
     return nearest_cars
+
+
