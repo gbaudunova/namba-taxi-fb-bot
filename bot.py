@@ -1,11 +1,10 @@
+# -*- coding: utf-8 -*-
 import sys
-
 import requests
-from modules.need_parameters import need_phone
-from modules.sekret import *
 from flask import Flask, request
+from modules.need_parameters import need_phone
+from modules.sekret import VERIFY_TOKEN, PAGE_ACCESS_TOKEN
 from pymessenger.bot import Bot
-
 from modules.sendMessageButton import decide_button
 
 app = Flask(__name__)
@@ -38,7 +37,7 @@ def webhook_test():
                     message = messaging_event["postback"]["payload"]
                     decide_button(sender_id, message, data)
 
-                if messaging_event.get("delivery"):  # delivery confirmation
+                if messaging_event.get("delivery"):
                     pass
     setup_all()
 

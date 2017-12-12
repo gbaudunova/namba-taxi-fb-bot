@@ -2,7 +2,7 @@ import sqlite3
 import requests
 from flask import Flask
 from modules.get_data import get_data
-from modules.sekret import *
+from modules.sekret import SERVER_TOKEN, PARTNER_ID
 
 app = Flask(__name__)
 
@@ -38,7 +38,6 @@ def create_order():
     headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
     responce = requests.post("https://partners.staging.swift.kg/api/v1/requests/", data=body, headers=headers).json()
     order_id = responce['order_id']
-    print(order_id)
     insert_order_id(order_id)
     return order_id
 
@@ -55,6 +54,8 @@ def delete_order_id():
     conn3 = db4.cursor()
     conn3.execute("DELETE FROM order_id WHERE id=(SELECT max(id) FROM order_id);")
     db4.commit()
+
+
 
 
 
