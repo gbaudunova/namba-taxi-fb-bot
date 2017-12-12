@@ -17,7 +17,8 @@ def get_order_status(order_id):
         "partner_id": PARTNER_ID,
 
     }
-    headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
+    headers = {'accept': 'application/json',
+               'content-type': 'application/x-www-form-urlencoded'}
     responce = requests.post(url, data=body, headers=headers).json()
     print(responce)
     driver_data = responce['driver']
@@ -27,13 +28,3 @@ def get_order_status(order_id):
     trip_cost = responce['trip_cost']
     print(trip_cost)
     return order_status
-
-
-
-
-
-
-
-
-
-

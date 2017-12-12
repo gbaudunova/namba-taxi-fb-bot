@@ -16,7 +16,8 @@ def cancel_order(order_id):
         "partner_id": PARTNER_ID
 
     }
-    headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
+    headers = {'accept': 'application/json',
+               'content-type': 'application/x-www-form-urlencoded'}
     responce = requests.post(url, data=body, headers=headers).json()
     print(responce)
 
@@ -35,8 +36,11 @@ def create_order():
         "address": address
 
     }
-    headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
-    responce = requests.post("https://partners.staging.swift.kg/api/v1/requests/", data=body, headers=headers).json()
+    headers = {'accept': 'application/json',
+               'content-type': 'application/x-www-form-urlencoded'}
+    responce = requests.post(
+        "https://partners.staging.swift.kg/api/v1/requests/",
+        data=body, headers=headers).json()
     order_id = responce['order_id']
     insert_order_id(order_id)
     return order_id
@@ -54,22 +58,3 @@ def delete_order_id():
     conn3 = db4.cursor()
     conn3.execute("DELETE FROM order_id WHERE id=(SELECT max(id) FROM order_id);")
     db4.commit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

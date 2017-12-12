@@ -23,8 +23,3 @@ def insert_address(data):
     address = data['entry'][0]['messaging'][0]['message']['text']
     conn1.execute("INSERT INTO address VALUES (NULL, ?)", (address,))
     db2.commit()
-
-
-
-
-

@@ -9,15 +9,16 @@ app = Flask(__name__)
 def get_nearest_drivers():
     data_address = get_address()
     address = data_address[1]
+    url = "https://partners.staging.swift.kg/api/v1/drivers/nearest/"
     body = {
         "server_token": SERVER_TOKEN,
         "partner_id": PARTNER_ID,
         "address": address
     }
-    headers = {'accept': 'application/json', 'content-type': 'application/x-www-form-urlencoded'}
-    resp = requests.post("https://partners.staging.swift.kg/api/v1/drivers/nearest/", data=body, headers=headers).json()
+    headers = {'accept': 'application/json',
+               'content-type': 'application/x-www-form-urlencoded'}
+    resp = requests.post(url,
+                         data=body, headers=headers).json()
     print(resp)
     nearest_cars = resp['drivers']
     return nearest_cars
-
-
