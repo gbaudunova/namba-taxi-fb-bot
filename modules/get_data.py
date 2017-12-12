@@ -19,6 +19,7 @@ def get_order_id():
     c = db.cursor()
     c.execute("SELECT * FROM order_id WHERE id=(SELECT max(id) FROM order_id);")
     order_id = c.fetchone()
+    db.commit()
     return order_id
 
 
@@ -27,27 +28,5 @@ def get_address():
     c = db.cursor()
     c.execute("SELECT * FROM address WHERE id=(SELECT max(id) FROM address);")
     address_data = c.fetchone()
+    db.commit()
     return address_data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

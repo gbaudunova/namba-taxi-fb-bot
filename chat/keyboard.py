@@ -21,6 +21,7 @@ def send_button_message(sender_id, page_token, btn_message):
         }
     })
     response = requests.post(URL, params=params, headers=headers, data=data)
+    print(response)
 
 
 def get_basic_keyboard_message(sender_id):
@@ -36,23 +37,26 @@ def get_basic_keyboard_message(sender_id):
                     "template_type": "button",
                     "text": BOT_WELCOME_MESSAGE,
                     "buttons": [
-                    {
-                        "type": "postback",
-                        "title": "Быстрый вызов такси",
-                        "payload": "call-taxi"
-                    },
-                    {
-                        "type": "postback",
-                        "title": "Тарифы",
-                        "payload": "rates"
-                    }
+                        {
+                            "type": "postback",
+                            "title": "Быстрый вызов такси",
+                            "payload": "call-taxi"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Тарифы",
+                            "payload": "rates"
+                        }
                     ]
                 }
             }
         }
     })
     headers = {'Content-type': 'application/json'}
-    response = requests.post(URL, data=data, params=params, headers=headers)
+    response = requests.post(URL, data=data,
+                             params=params,
+                             headers=headers)
+    print(response)
 
 
 def get_order_keyboard(sender_id):
@@ -89,7 +93,10 @@ def get_order_keyboard(sender_id):
         }
     })
     headers = {'Content-type': 'application/json'}
-    response = requests.post(URL, data=data, params=params, headers=headers)
+    response = requests.post(URL, data=data,
+                             params=params,
+                             headers=headers)
+    print(response)
 
 
 def create_keyboard_fares(sender_id):
@@ -105,7 +112,7 @@ def create_keyboard_fares(sender_id):
                     "template_type": "generic",
                     "elements": [
                         {
-                            "title": "Проведите влево/вправо для получения дополнительных тарифов.",
+                            "title": "Проведите >/< для получения доп.тарифов",
                             "buttons": [
                                 {
                                     "type": "postback",
@@ -125,7 +132,7 @@ def create_keyboard_fares(sender_id):
                                 ]
                         },
                         {
-                            "title": "Проведите влево/вправо для получения дополнительных тарифов.",
+                            "title": "Проведите >/< для получения доп.тарифов",
                             "buttons": [
                                 {
                                     "type": "postback",
@@ -145,7 +152,11 @@ def create_keyboard_fares(sender_id):
         }
     })
     headers = {'Content-type': 'application/json'}
-    response = requests.post(URL, data=data, params=params, headers=headers)
+    response = requests.post(URL,
+                             data=data,
+                             params=params,
+                             headers=headers)
+    print(response)
 
 
 def save_phone(sender_id):
@@ -163,21 +174,19 @@ def save_phone(sender_id):
                     "template_type": "button",
                     "text": "Нажмите на кнопку для сохранения вашего номера",
                     "buttons": [
-                    {
-                        "type": "postback",
-                        "title": "Сохранить номер телефона",
-                        "payload": "save-phone"
-                    },
+                        {
+                            "type": "postback",
+                            "title": "Сохранить номер телефона",
+                            "payload": "save-phone"
+                        },
                     ]
                 }
             }
         }
     })
     headers = {'Content-type': 'application/json'}
-    responce = requests.post(URL, data=data, params=params, headers=headers)
-
-
-
-
-
-
+    responce = requests.post(URL,
+                             data=data,
+                             params=params,
+                             headers=headers)
+    print(responce)
