@@ -32,7 +32,8 @@ def webhook_test():
                 sender_id = messaging_event["sender"]["id"]
                 if messaging_event.get("message"):
                     message_text = messaging_event["message"]["text"]
-                    need_phone(sender_id, data, message_text)
+                    print(message_text)
+                    need_phone(sender_id, data)
 
                 if messaging_event.get("postback"):
                     message = messaging_event["postback"]["payload"]

@@ -2,14 +2,15 @@ import sqlite3
 import requests
 from flask import Flask
 from modules.get_data import get_data
-from modules.sekret import SERVER_TOKEN, PARTNER_ID
+from modules.sekret import SERVER_TOKEN,\
+    PARTNER_ID, URL_CANCEL_ORDER
 
 app = Flask(__name__)
 
 
 @app.route('/v1/requests/{id}/cancel/')
 def cancel_order(order_id):
-    url = "https://partners.staging.swift.kg/api/v1/requests/{0}/cancel/".format(order_id)
+    url = URL_CANCEL_ORDER.format(order_id)
     print(url)
     body = {
         "server_token": SERVER_TOKEN,
@@ -49,12 +50,13 @@ def create_order():
 def insert_order_id(order_id):
     db3 = sqlite3.connect('NambaTaxiBot.db')
     conn2 = db3.cursor()
-    conn2.execute("INSERT INTO order_id VALUES (NULL , ?)", (order_id,))
+    conn2.execute('INSERT INTO order_id VALUES (NULL , ?)', (order_id,))
     db3.commit()
 
 
 def delete_order_id():
     db4 = sqlite3.connect('NambaTaxiBot.db')
     conn3 = db4.cursor()
-    conn3.execute("DELETE FROM order_id WHERE id=(SELECT max(id) FROM order_id);")
+    conn3.execute('DELETE FROM order_id WHERE '
+                  'id=(SELECT max(id) FROM order_id);')
     db4.commit()

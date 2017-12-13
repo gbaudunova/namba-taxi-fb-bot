@@ -1,7 +1,8 @@
 import requests
 import threading
 from flask import Flask
-from modules.sekret import PARTNER_ID, SERVER_TOKEN
+from modules.sekret import PARTNER_ID,\
+    SERVER_TOKEN, URL_ORDER_STATUS
 
 
 app = Flask(__name__)
@@ -10,7 +11,7 @@ app = Flask(__name__)
 @app.route('/v1/requests/{id}/', methods=['POST'])
 def get_order_status(order_id):
     threading.Timer(20.0, get_order_status, [order_id]).start()
-    url = "https://partners.staging.swift.kg/api/v1/requests/{0}/".format(order_id)
+    url = URL_ORDER_STATUS.format(order_id)
     print(url)
     body = {
         "server_token": SERVER_TOKEN,
