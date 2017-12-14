@@ -6,7 +6,7 @@ from chat.keyboard import get_basic_keyboard_message
 from chat.keyboard import send_button_message
 from chat.messages import BOT_ASK_FARE, BOT_ASK_PHONE,\
     BOT_FARES_LINK, BOT_MESSAGE_NEAREST_CARS, BOT_FARE_INFO, \
-    BOT_MESSAGE_MY_ORDER_STATUS, BOT_ORDER_CANCEL, BOT_ASK_ADDRESS
+    BOT_ORDER_CANCEL, BOT_ASK_ADDRESS
 from modules.get_data import get_order_id
 from .db import insert_fares
 from .sekret import PAGE_ACCESS_TOKEN
@@ -27,9 +27,7 @@ def decide_button(sender_id, message, data):
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
         create_keyboard_fares(sender_id)
     elif message == 'order-status':
-        send_button_message(sender_id, PAGE_ACCESS_TOKEN,
-                            BOT_MESSAGE_MY_ORDER_STATUS)
-        get_order_status(order_id)
+        get_order_status(sender_id, order_id)
     elif message == 'nearest-drivers':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_MESSAGE_NEAREST_CARS)
