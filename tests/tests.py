@@ -13,7 +13,7 @@ class FirstTest(unittest.TestCase):
         pass
 
     def test_connect(self):
-        r = self.app.get('/')
+        r = self.app.get('http://127.0.0.1:8000/')
         self.assertEqual(r.status_code, 404)
 
 
