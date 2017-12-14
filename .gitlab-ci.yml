@@ -1,12 +1,12 @@
 image: python:latest
 
-stages:
-  - lint
-
 before_script:
   - pip install -r requirements.txt
 
 lint:
-  stage: lint
   script:
   - flake8
+
+test:
+  script:
+  - python -m unittest
