@@ -1,7 +1,8 @@
 import requests
 from flask import Flask
-from modules.get_data import get_address
 from modules.sekret import SERVER_TOKEN, PARTNER_ID
+from storage.get_data import get_address
+
 app = Flask(__name__)
 
 

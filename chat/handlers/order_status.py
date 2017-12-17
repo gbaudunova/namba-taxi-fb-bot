@@ -1,13 +1,12 @@
-import requests
 import threading
+import requests
 from flask import Flask
-from modules.sekret import PARTNER_ID,\
-    SERVER_TOKEN, URL_ORDER_STATUS, PAGE_ACCESS_TOKEN
 from chat.messages import BOT_ORDER_ACCEPTED, BOT_DRIVER_LOCATION, \
     BOT_CLIENT_BORT, BOT_DRIVER_IN_PLACE, BOT_ORDER_DONE, \
     BOT_MESSAGE_MY_ORDER_STATUS, BOT_ORDER_CANCEL, BOT_NO_ORDER
 from chat.keyboard import send_button_message
-
+from modules.sekret import PARTNER_ID, \
+    SERVER_TOKEN, URL_ORDER_STATUS, PAGE_ACCESS_TOKEN
 
 app = Flask(__name__)
 
@@ -33,7 +32,7 @@ def get_order_status(sender_id, order_id):
     print(order_status)
     trip_cost = responce['trip_cost']
     print(trip_cost)
-    #order_status_reaction(sender_id, order_status)
+    order_status_reaction(sender_id, order_status)
     return order_status
 
 

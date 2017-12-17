@@ -2,10 +2,10 @@
 import sys
 import requests
 from flask import Flask, request
-from modules.need_parameters import need_phone
-from modules.sekret import VERIFY_TOKEN, PAGE_ACCESS_TOKEN,\
-    URL_MESSENGER_PROFILE
 from pymessenger.bot import Bot
+from modules.need_parameters import need_phone
+from modules.sekret import VERIFY_TOKEN, PAGE_ACCESS_TOKEN, \
+    URL_MESSENGER_PROFILE
 from modules.sendMessageButton import decide_button
 
 app = Flask(__name__)

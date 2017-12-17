@@ -1,10 +1,10 @@
 import sqlite3
 import requests
 from flask import Flask
-from modules.get_data import get_data
-from modules.sekret import SERVER_TOKEN,\
+from modules.sekret import SERVER_TOKEN, \
     PARTNER_ID, URL_CANCEL_ORDER
-from modules.get_data import get_data_creation_order
+from storage.get_data import get_data
+from storage.get_data import get_data_creation_order
 
 app = Flask(__name__)
 
