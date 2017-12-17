@@ -33,11 +33,12 @@ def get_order_status(sender_id, order_id):
     print(order_status)
     trip_cost = responce['trip_cost']
     print(trip_cost)
-    order_status_reaction(sender_id, order_status)
+    #order_status_reaction(sender_id, order_status)
     return order_status
 
 
-def order_status_reaction(sender_id, order_status):
+def order_status_reaction(sender_id, order_id):
+    order_status = get_order_status(sender_id, order_id)
     print(order_status)
     if order_status == 'Принят':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
@@ -50,17 +51,21 @@ def order_status_reaction(sender_id, order_status):
     elif order_status == 'Отклонен':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_ORDER_CANCEL)
+        pass
     elif order_status == 'Машина на месте':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_DRIVER_IN_PLACE)
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_DRIVER_LOCATION)
+        pass
     elif order_status == 'Клиент на борту':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_CLIENT_BORT)
+        pass
     elif order_status == 'Выполнен':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_ORDER_DONE)
+        pass
     else:
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_NO_ORDER)

@@ -1,9 +1,10 @@
-from api.handlers_order import create_order
 from chat.keyboard import get_order_keyboard
 from chat.keyboard import save_phone
 from chat.keyboard import send_button_message
 from chat.messages import BOT_PHONE_START_996, BOT_ORDER_CREATED, \
     BOT_ERROR_MESSAGE
+
+from chat.handlers.handlers_order import create_order
 from .db import insert_address, insert_phone_numbers
 from .sekret import PAGE_ACCESS_TOKEN
 

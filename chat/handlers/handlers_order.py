@@ -4,6 +4,7 @@ from flask import Flask
 from modules.get_data import get_data
 from modules.sekret import SERVER_TOKEN,\
     PARTNER_ID, URL_CANCEL_ORDER
+from modules.get_data import get_data_creation_order
 
 app = Flask(__name__)
 
@@ -44,6 +45,7 @@ def create_order():
         data=body, headers=headers).json()
     order_id = responce['order_id']
     insert_order_id(order_id)
+    get_data_creation_order()
     return order_id
 
 
