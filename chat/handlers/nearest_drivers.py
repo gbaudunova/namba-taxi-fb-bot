@@ -2,13 +2,14 @@ import requests
 from flask import Flask
 from modules.sekret import SERVER_TOKEN, PARTNER_ID
 from storage.get_data import get_address
+from config.db_config import db_conf
 
 app = Flask(__name__)
 
 
 @app.route('/v1/drivers/nearest/', methods=['POST'])
 def get_nearest_drivers():
-    data_address = get_address()
+    data_address = get_address(db_conf['name'])
     address = data_address[1]
     url = "https://partners.staging.swift.kg/api/v1/drivers/nearest/"
     body = {
