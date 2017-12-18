@@ -4,7 +4,7 @@ from flask import Flask
 from modules.sekret import SERVER_TOKEN, \
     PARTNER_ID, URL_CANCEL_ORDER
 from storage.get_data import get_data
-from storage.get_data import get_data_creation_order
+from config.db_config import db_conf
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def cancel_order(order_id):
 
 @app.route('/v1/requests/', methods=['POST'])
 def create_order():
-    data = get_data()
+    data = get_data(db_conf['name'])
     phone_number = data[0][1]
     fare = data[1][1]
     address = data[2][1]
@@ -44,21 +44,13 @@ def create_order():
         "https://partners.staging.swift.kg/api/v1/requests/",
         data=body, headers=headers).json()
     order_id = responce['order_id']
-    insert_order_id(order_id)
-    get_data_creation_order()
+    print(order_id)
+    insert_order_id(order_id, db_conf['name'])
     return order_id
 
 
-def insert_order_id(order_id):
-    db3 = sqlite3.connect('NambaTaxiBot.db')
+def insert_order_id(order_id, db_name):
+    db3 = sqlite3.connect(db_name)
     conn2 = db3.cursor()
     conn2.execute('INSERT INTO order_id VALUES (NULL , ?)', (order_id,))
     db3.commit()
-
-
-def delete_order_id():
-    db4 = sqlite3.connect('NambaTaxiBot.db')
-    conn3 = db4.cursor()
-    conn3.execute('DELETE FROM order_id WHERE '
-                  'id=(SELECT max(id) FROM order_id);')
-    db4.commit()

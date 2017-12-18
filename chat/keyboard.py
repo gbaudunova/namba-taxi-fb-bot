@@ -21,7 +21,7 @@ def send_button_message(sender_id, page_token, btn_message):
         }
     })
     response = requests.post(URL, params=params, headers=headers, data=data)
-    print(response)
+    return response
 
 
 def get_basic_keyboard_message(sender_id):
