@@ -1,4 +1,5 @@
-from chat.handlers.handlers_order import cancel_order, delete_order_id
+from chat.handlers.handlers_order import cancel_order
+from storage.get_data import delete_order_id
 from chat.handlers.nearest_drivers import get_nearest_drivers
 from chat.handlers.order_status import get_order_status
 from chat.keyboard import create_keyboard_fares
@@ -11,10 +12,11 @@ from modules.sekret import PAGE_ACCESS_TOKEN
 from storage.db import insert_fares
 from storage.get_data import delete_order
 from storage.get_data import get_order_id
+from config.db_config import db_conf
 
 
 def decide_button(sender_id, message, data):
-    data_order_id = get_order_id()
+    data_order_id = get_order_id(db_conf['name'])
     order_id = data_order_id[1]
 
     if message == "call-taxi":
@@ -30,19 +32,18 @@ def decide_button(sender_id, message, data):
     elif message == 'order-status':
         get_order_status(sender_id, order_id)
     elif message == 'nearest-drivers':
+        nearest_drivers = get_nearest_drivers()
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
-                            BOT_MESSAGE_NEAREST_CARS)
-        get_nearest_drivers()
-
+                            BOT_MESSAGE_NEAREST_CARS.format(nearest_drivers))
     elif message == 'order-cancel':
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_ORDER_CANCEL)
         cancel_order(order_id)
-        delete_order()
-        delete_order_id()
+        delete_order(db_conf['name'])
+        delete_order_id(db_conf['name'])
 
     else:
         callback = data['entry'][0]['messaging'][0]['postback']['payload']
         print(callback)
-        insert_fares(data)
+        insert_fares(data, db_conf['name'])
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_ADDRESS)
