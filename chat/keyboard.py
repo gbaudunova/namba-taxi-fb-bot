@@ -56,7 +56,7 @@ def get_basic_keyboard_message(sender_id):
     response = requests.post(URL, data=data,
                              params=params,
                              headers=headers)
-    print(response)
+    return response
 
 
 def get_order_keyboard(sender_id):
@@ -96,7 +96,7 @@ def get_order_keyboard(sender_id):
     response = requests.post(URL, data=data,
                              params=params,
                              headers=headers)
-    print(response)
+    return response
 
 
 def create_keyboard_fares(sender_id):
@@ -156,7 +156,7 @@ def create_keyboard_fares(sender_id):
                              data=data,
                              params=params,
                              headers=headers)
-    print(response)
+    return response
 
 
 def save_phone(sender_id):
@@ -189,4 +189,4 @@ def save_phone(sender_id):
                              data=data,
                              params=params,
                              headers=headers)
-    print(responce)
+    return responce
