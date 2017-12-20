@@ -16,6 +16,7 @@ NambaTaxiBot.db-journal
 __pychache__
 bot
 mydatabase
+mydatabase.db
 
 
 

@@ -61,3 +61,13 @@ class TestPhoneNumbersDb(unittest.TestCase):
                               id=(SELECT max(id) FROM order_id);")
         order_id1 = self.cursor.fetchone()
         self.assertNotEqual(order_id, order_id1)
+
+    def test_delete_order(self):
+        self.cursor.execute("SELECT * FROM CreateOrder WHERE \
+                              id=(SELECT max(id) FROM CreateOrder);")
+        order = self.cursor.fetchone()
+        get_data.delete_order(db_config.db_conf['name'])
+        self.cursor.execute("SELECT * FROM CreateOrder WHERE \
+                              id=(SELECT max(id) FROM CreateOrder);")
+        order_after_delete = self.cursor.fetchone()
+        self.assertNotEqual(order, order_after_delete)
