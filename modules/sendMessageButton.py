@@ -1,7 +1,7 @@
 from chat.handlers.handlers_order import cancel_order
 from storage.get_data import delete_order_id
 from chat.handlers.nearest_drivers import get_nearest_drivers
-from chat.handlers.order_status import get_order_status
+from chat.handlers.order_status import order_status_reaction
 from chat.keyboard import create_keyboard_fares
 from chat.keyboard import get_basic_keyboard_message
 from chat.keyboard import send_button_message
@@ -18,7 +18,6 @@ from config.db_config import db_conf
 def decide_button(sender_id, message, data):
     data_order_id = get_order_id(db_conf['name'])
     order_id = data_order_id[1]
-
     if message == "call-taxi":
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_PHONE)
     elif message == 'rates':
@@ -30,7 +29,7 @@ def decide_button(sender_id, message, data):
         send_button_message(sender_id, PAGE_ACCESS_TOKEN, BOT_ASK_FARE)
         create_keyboard_fares(sender_id)
     elif message == 'order-status':
-        get_order_status(sender_id, order_id)
+        order_status_reaction(order_id, sender_id)
     elif message == 'nearest-drivers':
         nearest_drivers = get_nearest_drivers()
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,

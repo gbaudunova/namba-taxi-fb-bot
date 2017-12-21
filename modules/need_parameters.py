@@ -43,6 +43,7 @@ def need_address(sender_id, data, order_id):
     else:
         insert_address(data, db_conf['name'])
         create_order()
+
         insert_data_creation_order(db_conf['name'])
         send_button_message(sender_id, PAGE_ACCESS_TOKEN,
                             BOT_ORDER_CREATED.format(order_id))
