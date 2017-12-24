@@ -1,5 +1,4 @@
 venv
-__pychache__
 .idea
 .vscode
 modules/sekret.py
@@ -11,4 +10,15 @@ db/
 __pycache__
 Phone_Sqlite.sqlite
 phone_numbers.db
-NambaTaxiBot.db
+phone_numbers.db
+postman.tar.gz
+NambaTaxiBot.db-journal
+__pychache__
+bot
+mydatabase
+mydatabase.db
+.coverage
+htmlcov
+
+
+
